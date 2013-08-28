@@ -28,8 +28,6 @@
     UIViewAnimationCurve animationCurve;
     [[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
     
-    NSLog(@"%d", animationCurve);
-    
     return [KeyboardHelper animationOptionsWithCurve:animationCurve];
 }
 

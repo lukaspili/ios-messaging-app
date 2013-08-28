@@ -10,7 +10,7 @@
 
 @implementation SessionManager
 
-@synthesize user=_user;
+@synthesize user=_user, token;
 
 static SessionManager *instance = nil;
 

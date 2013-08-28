@@ -12,6 +12,7 @@
 #import "Comment.h"
 #import "KeyboardHelper.h"
 #import "CommentCell.h"
+#import "NSString+Utils.h"
 
 @interface ViewPostViewController ()
 
@@ -77,8 +78,7 @@
         
         if(success) {
             self.comments = [comments mutableCopy];
-            NSLog(@"%d", self.comments.count);
-//            [self.tableView reloadData];
+            [self.tableView reloadData];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading failed"
                                                             message:@"Check your id or your internet connection dude."
@@ -99,7 +99,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"count %d", self.comments.count);
     return self.comments.count;
 }
 
@@ -222,27 +221,40 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    [self postComment];
-    return YES;
-}
-
-- (void)postComment
-{
     
-}
-
-# pragma mark - textview
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    NSLog(@"delegate");
-    if([text isEqualToString:@"\n"]) {
-        [textView resignFirstResponder];
-        return NO;
+    if(![self.commentTextField.text isEmpty]) {
+        [self postComment];
     }
     
     return YES;
 }
 
+- (void)postComment
+{
+    Comment *comment = [[Comment alloc] init];
+    comment.content = self.commentTextField.text;
+    comment.remoteThreadId = self.post.remoteId;
+
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Posting comment";
+    hud.detailsLabelText = @"Please wait few seconds";
+    
+    [[WebClient sharedInstance] createComment:comment callbackBlock:^(BOOL success) {
+        [hud hide:YES];
+        
+        if(success) {
+            [self loadComments];
+            self.commentTextField.text = @"";
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Posting comment failed"
+                                                            message:@"Check your internet connection, dude."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+    }];
+}
 
 - (void)backButtonClick
 {

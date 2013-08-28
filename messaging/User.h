@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RemoteEntity.h"
 
-@interface User : NSObject
+@interface User : RemoteEntity
 
-@property (assign, nonatomic) NSInteger remoteId;
 @property (strong, nonatomic) NSString *name;
 
 @end

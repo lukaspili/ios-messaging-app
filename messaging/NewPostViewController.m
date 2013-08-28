@@ -7,6 +7,7 @@
 //
 
 #import "NewPostViewController.h"
+#import "TimelineViewController.h"
 #import "SessionManager.h"
 #import "MBProgressHUD.h"
 #import "WebClient.h"
@@ -25,12 +26,13 @@
 
 @implementation NewPostViewController
 
+@synthesize delegate;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-//    [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar.png"] forBarMetrics:UIBarMetricsDefault];
-    
+    [self.contentTextView becomeFirstResponder];
 }
 
 - (IBAction)cancelButtonClick:(id)sender
@@ -40,6 +42,8 @@
 
 - (IBAction)postButtonClick:(id)sender
 {
+    [self.contentTextView resignFirstResponder];
+    
     Post *post = [[Post alloc] init];
     post.content = self.contentTextView.text;
     post.date = [NSDate date];
@@ -54,9 +58,11 @@
         [hud hide:YES];
         
         if(success) {
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self dismissViewControllerAnimated:YES completion:^{
+                [self.delegate loadPosts];
+            }];
         } else {
-            
+            [self.contentTextView becomeFirstResponder];
         }
     }];
 }

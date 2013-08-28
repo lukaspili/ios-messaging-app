@@ -10,12 +10,12 @@
 #import "ViewTopicViewController.h"
 #import "WebClient.h"
 #import "MBProgressHUD.h"
-#import "Topic.h"
+#import "Conversation.h"
 
 @interface MessagesViewController ()
 
-@property (strong, nonatomic) NSMutableArray *topics;
-@property (strong, nonatomic) Topic *selectedTopic;
+@property (strong, nonatomic) NSMutableArray *conversations;
+@property (strong, nonatomic) Conversation *selectedConversation;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
 @end
@@ -29,7 +29,7 @@
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
-    [self loadTopics];
+    [self loadConversations];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -38,22 +38,22 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)loadTopics
+- (void)loadConversations
 {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"Loading topics";
+    hud.labelText = @"Loading conversations";
     hud.detailsLabelText = @"Please wait few seconds";
     
     WebClient *client = [WebClient sharedInstance];
-    [client getTopicsForCurrentUserWithCallbackBlock:^(BOOL success, NSArray *topics) {
+    [client getConversationsWithCallbackBlock:^(BOOL success, NSArray *conversations) {
         [hud hide:YES];
         
         if(success) {
-            self.topics = [topics mutableCopy];
+            self.conversations = [conversations mutableCopy];
             [self.tableView reloadData];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading failed"
-                                                            message:@"Check your id or your internet connection dude."
+                                                            message:@"Check your internet connection, dude."
                                                            delegate:nil
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
@@ -71,7 +71,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.topics.count;
+    return self.conversations.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -79,9 +79,10 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    Topic *topic = self.topics[indexPath.row];
-    cell.textLabel.text = topic.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", topic.user.name, [self.dateFormatter stringFromDate:topic.date]];
+    Conversation *conversation = self.conversations[indexPath.row];
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"Conversation with %@", [conversation getParticipantsNames]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Last message: %@", conversation.lastMessage.content];
     
     return cell;
 }
@@ -129,7 +130,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.selectedTopic = self.topics[indexPath.row];
+    self.selectedConversation = self.conversations[indexPath.row];
     [self performSegueWithIdentifier:@"view topic" sender:self];
 }
 
@@ -138,8 +139,8 @@
 {
     if([segue.identifier isEqualToString:@"view topic"]) {
         ViewTopicViewController *vc = segue.destinationViewController;
-        vc.topic = self.selectedTopic;
-        self.selectedTopic = nil;
+        vc.conversation = self.selectedConversation;
+        self.selectedConversation = nil;
     }
     
 }

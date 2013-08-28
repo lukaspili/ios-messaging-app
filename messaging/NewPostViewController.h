@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TimelineViewController.h"
 
 @interface NewPostViewController : UIViewController
+
+@property (weak, nonatomic) TimelineViewController *delegate;
 
 @end

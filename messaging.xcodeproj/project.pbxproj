@@ -57,6 +57,19 @@
 		80AB898D17C2ACA40053E784 /* MYRIADAT.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 80AB898C17C2ACA40053E784 /* MYRIADAT.TTF */; };
 		80AB898F17C2ADA60053E784 /* line.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AB898E17C2ADA60053E784 /* line.png */; };
 		80AB899117C2AE700053E784 /* navigation_bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AB899017C2AE700053E784 /* navigation_bar@2x.png */; };
+		80CE307417CE4E4D003007D0 /* JsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE307317CE4E4D003007D0 /* JsonParser.m */; };
+		80CE307717CE4F0F003007D0 /* RemoteEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE307617CE4F0F003007D0 /* RemoteEntity.m */; };
+		80CE307D17CE5092003007D0 /* DateFormatterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE307C17CE5092003007D0 /* DateFormatterManager.m */; };
+		80DDAA6217CE5CD80034C0EF /* post_login.json in Resources */ = {isa = PBXBuildFile; fileRef = 80DDAA6117CE5CD80034C0EF /* post_login.json */; };
+		80DDAA6417CE77D70034C0EF /* get_posts.json in Resources */ = {isa = PBXBuildFile; fileRef = 80DDAA6317CE77D70034C0EF /* get_posts.json */; };
+		80E7478217CE958B001957E5 /* post_posts.json in Resources */ = {isa = PBXBuildFile; fileRef = 80E7478117CE958B001957E5 /* post_posts.json */; };
+		80E7478417CE9F4C001957E5 /* get_comments.json in Resources */ = {isa = PBXBuildFile; fileRef = 80E7478317CE9F4C001957E5 /* get_comments.json */; };
+		80E7478817CEA0A5001957E5 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E7478717CEA0A5001957E5 /* NSString+Utils.m */; };
+		80E7478A17CEA2C4001957E5 /* post_comments.json in Resources */ = {isa = PBXBuildFile; fileRef = 80E7478917CEA2C4001957E5 /* post_comments.json */; };
+		80E7478C17CEA7CB001957E5 /* get_conversations.json in Resources */ = {isa = PBXBuildFile; fileRef = 80E7478B17CEA7CB001957E5 /* get_conversations.json */; };
+		80E7478F17CEA93B001957E5 /* Conversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E7478E17CEA93B001957E5 /* Conversation.m */; };
+		80E7479217CEA994001957E5 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E7479117CEA994001957E5 /* Message.m */; };
+		80E7479417CEAED7001957E5 /* get_messages.json in Resources */ = {isa = PBXBuildFile; fileRef = 80E7479317CEAED7001957E5 /* get_messages.json */; };
 		D23E342C04344F0B93695525 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D6C24A4DFC4BA5B92AFE98 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -137,6 +150,25 @@
 		80AB898C17C2ACA40053E784 /* MYRIADAT.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = MYRIADAT.TTF; sourceTree = "<group>"; };
 		80AB898E17C2ADA60053E784 /* line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line.png; sourceTree = "<group>"; };
 		80AB899017C2AE700053E784 /* navigation_bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation_bar@2x.png"; sourceTree = "<group>"; };
+		80CE307217CE4E4D003007D0 /* JsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonParser.h; sourceTree = "<group>"; };
+		80CE307317CE4E4D003007D0 /* JsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonParser.m; sourceTree = "<group>"; };
+		80CE307517CE4F0F003007D0 /* RemoteEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteEntity.h; sourceTree = "<group>"; };
+		80CE307617CE4F0F003007D0 /* RemoteEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteEntity.m; sourceTree = "<group>"; };
+		80CE307B17CE5092003007D0 /* DateFormatterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateFormatterManager.h; sourceTree = "<group>"; };
+		80CE307C17CE5092003007D0 /* DateFormatterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateFormatterManager.m; sourceTree = "<group>"; };
+		80DDAA6117CE5CD80034C0EF /* post_login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = post_login.json; sourceTree = "<group>"; };
+		80DDAA6317CE77D70034C0EF /* get_posts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = get_posts.json; sourceTree = "<group>"; };
+		80E7478117CE958B001957E5 /* post_posts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = post_posts.json; sourceTree = "<group>"; };
+		80E7478317CE9F4C001957E5 /* get_comments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = get_comments.json; sourceTree = "<group>"; };
+		80E7478617CEA0A5001957E5 /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
+		80E7478717CEA0A5001957E5 /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
+		80E7478917CEA2C4001957E5 /* post_comments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = post_comments.json; sourceTree = "<group>"; };
+		80E7478B17CEA7CB001957E5 /* get_conversations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = get_conversations.json; sourceTree = "<group>"; };
+		80E7478D17CEA93B001957E5 /* Conversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conversation.h; sourceTree = "<group>"; };
+		80E7478E17CEA93B001957E5 /* Conversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conversation.m; sourceTree = "<group>"; };
+		80E7479017CEA994001957E5 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		80E7479117CEA994001957E5 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		80E7479317CEAED7001957E5 /* get_messages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = get_messages.json; sourceTree = "<group>"; };
 		82D6C24A4DFC4BA5B92AFE98 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF972496B7AD4044B85FE95E /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -237,6 +269,7 @@
 		80AB893E17C26D040053E784 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				80E7478517CEA08F001957E5 /* Categories */,
 				8096E4E817C2CBEA00C7BF60 /* Table */,
 				80AB898217C2A0560053E784 /* Helpers */,
 				80AB897E17C2954B0053E784 /* Libs */,
@@ -285,6 +318,8 @@
 			children = (
 				80AB894B17C26ECA0053E784 /* SessionManager.h */,
 				80AB894C17C26ECA0053E784 /* SessionManager.m */,
+				80CE307B17CE5092003007D0 /* DateFormatterManager.h */,
+				80CE307C17CE5092003007D0 /* DateFormatterManager.m */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -306,6 +341,12 @@
 				80AB896D17C2847F0053E784 /* Comment.m */,
 				80AB896F17C2848B0053E784 /* ThreadMessage.h */,
 				80AB897017C2848C0053E784 /* ThreadMessage.m */,
+				80CE307517CE4F0F003007D0 /* RemoteEntity.h */,
+				80CE307617CE4F0F003007D0 /* RemoteEntity.m */,
+				80E7478D17CEA93B001957E5 /* Conversation.h */,
+				80E7478E17CEA93B001957E5 /* Conversation.m */,
+				80E7479017CEA994001957E5 /* Message.h */,
+				80E7479117CEA994001957E5 /* Message.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -333,6 +374,8 @@
 			children = (
 				80AB898317C2A0660053E784 /* KeyboardHelper.h */,
 				80AB898417C2A0660053E784 /* KeyboardHelper.m */,
+				80CE307217CE4E4D003007D0 /* JsonParser.h */,
+				80CE307317CE4E4D003007D0 /* JsonParser.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -340,6 +383,7 @@
 		80AB898617C2AAF00053E784 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				80DDAA6017CE5CBD0034C0EF /* Fake API */,
 				80AB898C17C2ACA40053E784 /* MYRIADAT.TTF */,
 				80AB898717C2AAF70053E784 /* Images */,
 			);
@@ -367,6 +411,29 @@
 				80AB898A17C2AB560053E784 /* hidder.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		80DDAA6017CE5CBD0034C0EF /* Fake API */ = {
+			isa = PBXGroup;
+			children = (
+				80DDAA6117CE5CD80034C0EF /* post_login.json */,
+				80DDAA6317CE77D70034C0EF /* get_posts.json */,
+				80E7478117CE958B001957E5 /* post_posts.json */,
+				80E7478317CE9F4C001957E5 /* get_comments.json */,
+				80E7478917CEA2C4001957E5 /* post_comments.json */,
+				80E7478B17CEA7CB001957E5 /* get_conversations.json */,
+				80E7479317CEAED7001957E5 /* get_messages.json */,
+			);
+			name = "Fake API";
+			sourceTree = "<group>";
+		};
+		80E7478517CEA08F001957E5 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				80E7478617CEA0A5001957E5 /* NSString+Utils.h */,
+				80E7478717CEA0A5001957E5 /* NSString+Utils.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -444,6 +511,13 @@
 				8096E4E717C2CA6800C7BF60 /* pic.png in Resources */,
 				8096E4F217C2D00F00C7BF60 /* navigation_fullblack.png in Resources */,
 				8096E4F317C2D00F00C7BF60 /* navigation_select.png in Resources */,
+				80DDAA6217CE5CD80034C0EF /* post_login.json in Resources */,
+				80DDAA6417CE77D70034C0EF /* get_posts.json in Resources */,
+				80E7478217CE958B001957E5 /* post_posts.json in Resources */,
+				80E7478417CE9F4C001957E5 /* get_comments.json in Resources */,
+				80E7478A17CEA2C4001957E5 /* post_comments.json in Resources */,
+				80E7478C17CEA7CB001957E5 /* get_conversations.json in Resources */,
+				80E7479417CEAED7001957E5 /* get_messages.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +583,12 @@
 				80AB898517C2A0660053E784 /* KeyboardHelper.m in Sources */,
 				8096E4EC17C2CBFD00C7BF60 /* CommentCell.m in Sources */,
 				8096E4EF17C2CD6F00C7BF60 /* PostCell.m in Sources */,
+				80CE307417CE4E4D003007D0 /* JsonParser.m in Sources */,
+				80CE307717CE4F0F003007D0 /* RemoteEntity.m in Sources */,
+				80CE307D17CE5092003007D0 /* DateFormatterManager.m in Sources */,
+				80E7478817CEA0A5001957E5 /* NSString+Utils.m in Sources */,
+				80E7478F17CEA93B001957E5 /* Conversation.m in Sources */,
+				80E7479217CEA994001957E5 /* Message.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

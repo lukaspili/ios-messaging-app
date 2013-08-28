@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RemoteEntity.h"
 #import "User.h"
 
-@interface Thread : NSObject
+@interface Thread : RemoteEntity
 
 @property (strong, nonatomic) NSDate *date;
 @property (strong, nonatomic) User *user;

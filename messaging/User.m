@@ -10,7 +10,7 @@
 
 @implementation User
 
-@synthesize remoteId=_remoteId, name=_name;
+@synthesize name=_name;
 
 
 @end

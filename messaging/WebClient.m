@@ -7,8 +7,22 @@
 //
 
 #import "WebClient.h"
+#import "OHHTTPStubs.h"
+#import "AFJSONRequestOperation.h"
+#import "SessionManager.h"
+#import "JsonParser.h"
+
+
+@interface WebClient()
+
+@property (strong, nonatomic) NSDictionary *authParameters;
+@property (strong, nonatomic) SessionManager *sessionManager;
+
+@end
 
 @implementation WebClient
+
+static NSString * const kWebserviceBaseUrl = @"https://api.gleepost.com/v0.0/";
 
 static WebClient *instance = nil;
 
@@ -16,7 +30,7 @@ static WebClient *instance = nil;
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [[WebClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://some.url"]];
+        instance = [[WebClient alloc] initWithBaseURL:[NSURL URLWithString:kWebserviceBaseUrl]];
     });
     
     return instance;
@@ -29,64 +43,72 @@ static WebClient *instance = nil;
         return nil;
     }
     
-    [self setDefaultHeader:@"Accept-Charset" value:@"utf-8"];
     [self setParameterEncoding:AFFormURLParameterEncoding];
+    [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
+    [self setDefaultHeader:@"Accept" value:@"application/json"];
+    
+    self.sessionManager = [SessionManager sharedInstance];
+    
+    if(ENV_FAKE_API) {
+        [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+            return [request.URL.absoluteString hasPrefix:kWebserviceBaseUrl];
+        } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+            NSString *path = request.URL.absoluteString.lastPathComponent;
+            NSRange range = [path rangeOfString:@"?"];
+            if(range.location != NSNotFound) {
+                path = [path substringWithRange:NSMakeRange(0, range.location)];
+            }
+            
+            NSString *filePath = [NSString stringWithFormat:@"%@_%@.json", [request.HTTPMethod lowercaseString], path];
+            NSLog(@"mock filepath %@", filePath);
+            return [OHHTTPStubsResponse responseWithFile:filePath contentType:@"text/json" responseTime:0.5];
+        }];
+    }
     
     return self;
 }
 
-- (void)loginWithName:(NSString *)name callbackBlock:(void (^)(BOOL success, User *user))callbackBlock
+- (void)loginWithName:(NSString *)name password:(NSString *)password andCallbackBlock:(void (^)(BOOL success))callbackBlock
 {
-    if(ENV_FAKE_API) {
+    [self postPath:@"login" parameters:@{@"user": name, @"pass": password} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *json = (NSDictionary *) responseObject;
+        BOOL success = [json[@"success"] boolValue];
+        
+        if(!success) {
+            callbackBlock(NO);
+            return;
+        }
+        
         User *user = [[User alloc] init];
-        user.name = @"Lukas";
+        user.name = @"lukas";
         user.remoteId = 1;
         
-        callbackBlock(YES, user);
-        return;
-    }
-    
-    [self postPath:@"login" parameters:@{@"name": name} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        callbackBlock(YES, nil);
+        self.sessionManager.user = user;
+        self.sessionManager.token = json[@"token"][@"value"];
+        
+        self.authParameters = @{@"id": [NSString stringWithFormat:@"%d", user.remoteId], @"token": self.sessionManager.token};
+        
+        callbackBlock(YES);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        callbackBlock(NO, nil);
+        callbackBlock(NO);
     }];
 }
 
 - (void)getPostsWithCallbackBlock:(void (^)(BOOL success, NSArray *posts))callbackBlock
 {
-    if(ENV_FAKE_API) {
-        User *user = [[User alloc] init];
-        user.name = @"Tade";
+    [self getPath:@"posts" parameters:self.authParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        Post *post1 = [[Post alloc] init];
-        post1.content = @"Post 1";
-        post1.date = [NSDate date];
-        post1.socialContent.likes = 10;
-        post1.socialContent.hates = 5;
-        post1.user = user;
+        NSDictionary *json = (NSDictionary *) responseObject;
+        BOOL success = [json[@"success"] boolValue];
         
-        Post *post2 = [[Post alloc] init];
-        post2.content = @"Post 2";
-        post2.date = [NSDate date];
-        post2.socialContent.likes = 10;
-        post2.socialContent.hates = 5;
-        post2.user = user;
+        if(!success) {
+            callbackBlock(NO, nil);
+            return;
+        }
         
-        Post *post3 = [[Post alloc] init];
-        post3.content = @"Post 3";
-        post3.date = [NSDate date];
-        post3.socialContent.likes = 10;
-        post3.socialContent.hates = 5;
-        post3.user = user;
-        
-        NSArray *posts = [NSArray arrayWithObjects:post1, post2, post3, nil];
+        NSArray *posts = [JsonParser parsePostsFromJson:json[@"posts"]];
         callbackBlock(YES, posts);
-        return;
-    }
-        
-    [self getPath:@"posts" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        callbackBlock(YES, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callbackBlock(NO, nil);
     }];
@@ -94,13 +116,13 @@ static WebClient *instance = nil;
 
 - (void)createPost:(Post *)post callbackBlock:(void (^)(BOOL success))callbackBlock
 {
-    if(ENV_FAKE_API) {
-        callbackBlock(YES);
-        return;
-    }
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"text", post.content, nil];
+    [params addEntriesFromDictionary:self.authParameters];
     
-    [self postPath:@"post" parameters:@{@"post": post} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        callbackBlock(YES);
+    [self postPath:@"posts" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *json = (NSDictionary *)responseObject;
+        BOOL success = [json[@"success"] boolValue];
+        callbackBlock(success);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callbackBlock(NO);
     }];
@@ -108,77 +130,79 @@ static WebClient *instance = nil;
 
 - (void)getCommentsForPost:(Post *)post withCallbackBlock:(void (^)(BOOL success, NSArray *comments))callbackBlock
 {
-    if(ENV_FAKE_API) {
-        User *user = [[User alloc] init];
-        user.name = @"Tade";
+    NSString *path = [NSString stringWithFormat:@"posts/%d/comments", post.remoteId];
+    [self getPath:path parameters:self.authParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        Comment *comment1 = [[Comment alloc] init];
-        comment1.content = @"Comment 1";
-        comment1.date = [NSDate date];
-        comment1.socialContent.likes = 10;
-        comment1.socialContent.hates = 5;
-        comment1.user = user;
+        NSDictionary *json = (NSDictionary *) responseObject;
+        BOOL success = [json[@"success"] boolValue];
         
-        Comment *comment2 = [[Comment alloc] init];
-        comment2.content = @"Comment 2";
-        comment2.date = [NSDate date];
-        comment2.socialContent.likes = 10;
-        comment2.socialContent.hates = 5;
-        comment2.user = user;
+        if(!success) {
+            callbackBlock(NO, nil);
+            return;
+        }
         
-        Comment *comment3 = [[Comment alloc] init];
-        comment3.content = @"Comment 3";
-        comment3.date = [NSDate date];
-        comment3.socialContent.likes = 10;
-        comment3.socialContent.hates = 5;
-        comment3.user = user;
-        
-        NSArray *comments = [NSArray arrayWithObjects:comment1, comment2, comment3, nil];
+        NSArray *comments = [JsonParser parseCommentsFromJson:json[@"comments"]];
         callbackBlock(YES, comments);
-        return;
-    }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        callbackBlock(NO, nil);
+    }];
+
 }
 
 - (void)createComment:(Comment *)comment callbackBlock:(void (^)(BOOL success))callbackBlock
 {
-    if(ENV_FAKE_API) {
-        callbackBlock(YES);
-        return;
-    }
+    NSString *path = [NSString stringWithFormat:@"posts/%d/comments", comment.remoteThreadId];
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"text", comment.content, nil];
+    [params addEntriesFromDictionary:self.authParameters];
+    
+    [self postPath:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *json = (NSDictionary *)responseObject;
+        BOOL success = [json[@"success"] boolValue];
+        callbackBlock(success);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        callbackBlock(NO);
+    }];
 }
 
-- (void)getTopicsForCurrentUserWithCallbackBlock:(void (^)(BOOL success, NSArray *topics))callbackBlock
+- (void)getConversationsWithCallbackBlock:(void (^)(BOOL success, NSArray *conversations))callbackBlock
 {
-    if(ENV_FAKE_API) {
-        User *user = [[User alloc] init];
-        user.name = @"Tade";
-        User *user2 = [[User alloc] init];
-        user2.name = @"Patrick";
-        NSArray *users = [NSArray arrayWithObjects:user, user2, nil];
+    [self getPath:@"conversations" parameters:self.authParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        Topic *obj1 = [[Topic alloc] init];
-        obj1.title = @"Topic 1";
-        obj1.date = [NSDate date];
-        obj1.users = users;
-        obj1.user = user2;
+        NSDictionary *json = (NSDictionary *) responseObject;
+        BOOL success = [json[@"success"] boolValue];
         
-        Topic *obj2 = [[Topic alloc] init];
-        obj2.title = @"Topic 2";
-        obj2.date = [NSDate date];
-        obj2.users = users;
-        obj2.user = user2;
+        if(!success) {
+            callbackBlock(NO, nil);
+            return;
+        }
         
-        Topic *obj3 = [[Topic alloc] init];
-        obj3.title = @"Topic 3";
-        obj3.date = [NSDate date];
-        obj3.users = users;
-        obj3.user = user2;
+        NSArray *conversations = [JsonParser parseConversationsFromJson:json[@"conversations"]];
+        callbackBlock(YES, conversations);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        callbackBlock(NO, nil);
+    }];
+}
+
+- (void)getMessagesForConversation:(Conversation *)conversation withCallbackBlock:(void (^)(BOOL success, NSArray *messages))callbackBlock
+{
+    NSString *path = [NSString stringWithFormat:@"conversations/%d/messages", conversation.remoteId];
+    [self getPath:path parameters:self.authParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSArray *objs = [NSArray arrayWithObjects:obj1, obj2, obj3, nil];
-        callbackBlock(YES, objs);
-        return;
-    }
-    
+        NSDictionary *json = (NSDictionary *) responseObject;
+        BOOL success = [json[@"success"] boolValue];
+        
+        if(!success) {
+            callbackBlock(NO, nil);
+            return;
+        }
+        
+        NSArray *messages = [JsonParser parseMessagesFromJson:json[@"conversation"][@"messages"]];
+        callbackBlock(YES, messages);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        callbackBlock(NO, nil);
+    }];
 }
 
 - (void)createTopic:(Topic *)topic callbackBlock:(void (^)(BOOL success))callbackBlock

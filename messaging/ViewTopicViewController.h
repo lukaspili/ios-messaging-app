@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Topic.h"
+#import "Conversation.h"
 
 @interface ViewTopicViewController : UITableViewController
 
-@property (strong, nonatomic) Topic *topic;
+@property (strong, nonatomic) Conversation *conversation;
 
 @end

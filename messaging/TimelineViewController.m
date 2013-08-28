@@ -8,6 +8,7 @@
 
 #import "TimelineViewController.h"
 #import "ViewPostViewController.h"
+#import "NewPostViewController.h"
 #import "WebClient.h"
 #import "MBProgressHUD.h"
 #import "Post.h"
@@ -73,6 +74,7 @@
 
 - (void)loadPosts
 {
+    NSLog(@"load posts");
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Loading posts";
     hud.detailsLabelText = @"Please wait few seconds";
@@ -190,8 +192,10 @@
         ViewPostViewController *vc = segue.destinationViewController;
         vc.post = self.selectedPost;
         self.selectedPost = nil;
+    } else if([segue.identifier isEqualToString:@"new post"]) {
+        NewPostViewController *vc = segue.destinationViewController;
+        vc.delegate = self;
     }
-
 }
 
 @end

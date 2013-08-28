@@ -12,12 +12,13 @@
 #import "Post.h"
 #import "Comment.h"
 #import "Topic.h"
+#import "Conversation.h"
 
 @interface WebClient : AFHTTPClient
 
 + (WebClient *)sharedInstance;
 
-- (void)loginWithName:(NSString *)name callbackBlock:(void (^)(BOOL success, User *user))callbackBlock;
+- (void)loginWithName:(NSString *)name password:(NSString *)password andCallbackBlock:(void (^)(BOOL success))callbackBlock;
 
 - (void)getPostsWithCallbackBlock:(void (^)(BOOL success, NSArray *posts))callbackBlock;
 - (void)createPost:(Post *)post callbackBlock:(void (^)(BOOL success))callbackBlock;
@@ -25,7 +26,10 @@
 - (void)getCommentsForPost:(Post *)post withCallbackBlock:(void (^)(BOOL success, NSArray *comments))callbackBlock;
 - (void)createComment:(Comment *)comment callbackBlock:(void (^)(BOOL success))callbackBlock;
 
-- (void)getTopicsForCurrentUserWithCallbackBlock:(void (^)(BOOL success, NSArray *topics))callbackBlock;
+- (void)getConversationsWithCallbackBlock:(void (^)(BOOL success, NSArray *conversations))callbackBlock;
+
+- (void)getMessagesForConversation:(Conversation *)conversation withCallbackBlock:(void (^)(BOOL success, NSArray *messages))callbackBlock;
+
 - (void)createTopic:(Topic *)topic callbackBlock:(void (^)(BOOL success))callbackBlock;
 
 @end

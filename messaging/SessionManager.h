@@ -12,6 +12,7 @@
 @interface SessionManager : NSObject
 
 @property (strong, nonatomic) User *user;
+@property (strong, nonatomic) NSString *token;
 
 + (SessionManager *)sharedInstance;
 

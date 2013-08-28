@@ -10,4 +10,6 @@
 
 @interface TimelineViewController : UITableViewController
 
+- (void)loadPosts;
+
 @end
