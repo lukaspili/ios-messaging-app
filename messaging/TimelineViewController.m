@@ -29,10 +29,10 @@
     [super viewDidLoad];
     
     //self.tabBarController.tabBar.backgroundImage = [UIImage imageNamed:@"navigation_bar.png"];
-    UIImage* tabBarBackground = [UIImage imageNamed:@"navigation_fullblack.png"];
-    [[UITabBar appearance] setBackgroundImage:tabBarBackground];
-    
-    [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"navigation_select.png"]];
+//    UIImage* tabBarBackground = [UIImage imageNamed:@"navigation_fullblack.png"];
+//    [[UITabBar appearance] setBackgroundImage:tabBarBackground];
+//    
+//    [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageNamed:@"navigation_select.png"]];
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bar.png"] forBarMetrics:UIBarMetricsDefault];
     

@@ -19,6 +19,7 @@
 + (WebClient *)sharedInstance;
 
 - (void)loginWithName:(NSString *)name password:(NSString *)password andCallbackBlock:(void (^)(BOOL success))callbackBlock;
+- (void)registerWithName:(NSString *)name email:(NSString *)email password:(NSString *)password andCallbackBlock:(void (^)(BOOL success))callbackBlock;
 
 - (void)getPostsWithCallbackBlock:(void (^)(BOOL success, NSArray *posts))callbackBlock;
 - (void)createPost:(Post *)post callbackBlock:(void (^)(BOOL success))callbackBlock;
@@ -29,6 +30,10 @@
 - (void)getConversationsWithCallbackBlock:(void (^)(BOOL success, NSArray *conversations))callbackBlock;
 
 - (void)getMessagesForConversation:(Conversation *)conversation withCallbackBlock:(void (^)(BOOL success, NSArray *messages))callbackBlock;
+- (void)createMessage:(Message *)message callbackBlock:(void (^)(BOOL success))callbackBlock;
+
+- (void)createOneToOneConversationWithCallbackBlock:(void (^)(BOOL success, Conversation *conversation))callbackBlock;
+- (void)createGroupConversationWithCallbackBlock:(void (^)(BOOL success, Conversation *conversation))callbackBlock;
 
 - (void)createTopic:(Topic *)topic callbackBlock:(void (^)(BOOL success))callbackBlock;
 

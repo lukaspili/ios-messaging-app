@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Conversation.h"
 
-@interface ViewTopicViewController : UITableViewController
+@interface ViewTopicViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) Conversation *conversation;
 

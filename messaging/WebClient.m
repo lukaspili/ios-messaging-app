@@ -22,7 +22,7 @@
 
 @implementation WebClient
 
-static NSString * const kWebserviceBaseUrl = @"https://api.gleepost.com/v0.0/";
+static NSString * const kWebserviceBaseUrl = @"https://gleepost.com/api/v0.3/";
 
 static WebClient *instance = nil;
 
@@ -91,6 +91,20 @@ static WebClient *instance = nil;
         
         callbackBlock(YES);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error %@", error);
+        callbackBlock(NO);
+    }];
+}
+
+- (void)registerWithName:(NSString *)name email:(NSString *)email password:(NSString *)password andCallbackBlock:(void (^)(BOOL success))callbackBlock
+{
+    [self postPath:@"register" parameters:@{@"user": name, @"pass": password, @"email": email} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *json = (NSDictionary *) responseObject;
+        BOOL success = [json[@"success"] boolValue];
+        callbackBlock(success);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"error %@", error);
         callbackBlock(NO);
     }];
 }
@@ -177,7 +191,7 @@ static WebClient *instance = nil;
             return;
         }
         
-        NSArray *conversations = [JsonParser parseConversationsFromJson:json[@"conversations"]];
+        NSArray *conversations = [JsonParser parseConversationsFromJson:json[@"conversations"] ignoringUser:self.sessionManager.user];
         callbackBlock(YES, conversations);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callbackBlock(NO, nil);
@@ -202,6 +216,51 @@ static WebClient *instance = nil;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
         callbackBlock(NO, nil);
+    }];
+}
+
+- (void)createOneToOneConversationWithCallbackBlock:(void (^)(BOOL success, Conversation *conversation))callbackBlock
+{
+    [self createConversationWithPath:@"newconversation" andCallbackBlock:callbackBlock];
+}
+
+- (void)createGroupConversationWithCallbackBlock:(void (^)(BOOL success, Conversation *conversation))callbackBlock
+{
+    [self createConversationWithPath:@"newgroupconversation" andCallbackBlock:callbackBlock];
+}
+
+- (void)createConversationWithPath:(NSString *)path andCallbackBlock:(void (^)(BOOL success, Conversation *conversation))callbackBlock
+{
+    [self postPath:path parameters:self.authParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *json = (NSDictionary *) responseObject;
+        BOOL success = [json[@"success"] boolValue];
+        
+        if(!success) {
+            callbackBlock(NO, nil);
+            return;
+        }
+        
+        Conversation *conversation = [JsonParser parseConversationFromJson:json[@"conversation"] ignoringUser:self.sessionManager.user];
+        callbackBlock(YES, conversation);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        callbackBlock(NO, nil);
+    }];
+}
+
+- (void)createMessage:(Message *)message callbackBlock:(void (^)(BOOL success))callbackBlock
+{
+    NSString *path = [NSString stringWithFormat:@"conversations/%d/messages", message.conversationRemoteId];
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"text", message.content, nil];
+    [params addEntriesFromDictionary:self.authParameters];
+    
+    [self postPath:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *json = (NSDictionary *)responseObject;
+        BOOL success = [json[@"success"] boolValue];
+        callbackBlock(success);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        callbackBlock(NO);
     }];
 }
 

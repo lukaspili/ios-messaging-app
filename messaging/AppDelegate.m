@@ -16,15 +16,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"iphone" bundle:nil];
-    UIViewController *vc = [storyboard instantiateInitialViewController];
-    self.window.rootViewController = vc;
-    [self.window makeKeyAndVisible];
-    
-    UIViewController *splashScreenVC = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    splashScreenVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    splashScreenVC.modalPresentationStyle = UIModalPresentationFullScreen;
-    [vc presentModalViewController:splashScreenVC animated:NO];
+    return YES;
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"iphone" bundle:nil];
+//    UIViewController *vc = [storyboard instantiateInitialViewController];
+//    self.window.rootViewController = vc;
+//    [self.window makeKeyAndVisible];
+//    
+//    UIViewController *splashScreenVC = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+//    splashScreenVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    splashScreenVC.modalPresentationStyle = UIModalPresentationFullScreen;
+//    [vc presentModalViewController:splashScreenVC animated:NO];
     
     return YES;
 }

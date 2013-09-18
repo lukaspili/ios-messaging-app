@@ -1,56 +1,56 @@
 //
-//  LoginViewController.m
+//  RegisterViewController.m
 //  messaging
 //
-//  Created by Lukas on 8/19/13.
+//  Created by Lukas on 8/29/13.
 //  Copyright (c) 2013 Gleepost. All rights reserved.
 //
 
-#import "LoginViewController.h"
-#import "MBProgressHUD.h"
-#import "SessionManager.h"
+#import "RegisterViewController.h"
 #import "WebClient.h"
+#import "MBProgressHUD.h"
 
-@interface LoginViewController ()
+@interface RegisterViewController ()
 
+@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 
-- (IBAction)loginButtonClick:(id)sender;
+- (IBAction)registerButtonClick:(id)sender;
 - (IBAction)viewClicked:(id)sender;
 
 @end
 
-@implementation LoginViewController
+@implementation RegisterViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    
 }
 
-- (IBAction)loginButtonClick:(id)sender
+- (IBAction)registerButtonClick:(id)sender
 {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"Login...";
-    hud.detailsLabelText = @"Please wait";
+    hud.labelText = @"Registration";
+    hud.detailsLabelText = @"Please wait few seconds";
     
     WebClient *client = [WebClient sharedInstance];
-    [client loginWithName:self.nameTextField.text password:self.passwordTextField.text andCallbackBlock:^(BOOL success) {
+    [client registerWithName:self.nameTextField.text email:self.emailTextField.text password:self.passwordTextField.text andCallbackBlock:^(BOOL success) {
         [hud hide:YES];
         
         if(success) {
-            [self performSegueWithIdentifier:@"start" sender:self];
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login failed"
-                                                            message:@"Check your identifiers or your internet connection, dude."
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration failed"
+                                                            message:@"Check your informations or your internet connection, dude."
                                                            delegate:nil
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil];
             [alert show];
         }
     }];
+
 }
 
 - (IBAction)viewClicked:(id)sender
@@ -70,9 +70,12 @@
         [self.nameTextField resignFirstResponder];
     }
     
+    if([self.emailTextField isFirstResponder]) {
+        [self.emailTextField resignFirstResponder];
+    }
+    
     if([self.passwordTextField isFirstResponder]) {
         [self.passwordTextField resignFirstResponder];
     }
 }
-
 @end

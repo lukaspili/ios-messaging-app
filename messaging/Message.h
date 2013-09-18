@@ -12,6 +12,7 @@
 @interface Message : RemoteEntity
 
 @property (assign, nonatomic) BOOL seen;
+@property (assign, nonatomic) NSInteger conversationRemoteId;
 @property (strong, nonatomic) User *author;
 @property (strong, nonatomic) NSString *content;
 @property (strong, nonatomic) NSDate *date;

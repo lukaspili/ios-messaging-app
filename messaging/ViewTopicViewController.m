@@ -10,10 +10,20 @@
 #import "WebClient.h"
 #import "MBProgressHUD.h"
 #import "Message.h"
+#import "KeyboardHelper.h"
+#import "NSString+Utils.h"
 
 @interface ViewTopicViewController ()
 
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITextField *messageTextField;
+@property (weak, nonatomic) IBOutlet UIView *messageView;
+
+@property (assign, nonatomic) float keyboardAppearanceSpaceY;
 @property (strong, nonatomic) NSMutableArray *messages;
+
+- (IBAction)sendButtonClicked:(id)sender;
+- (IBAction)tableViewClicked:(id)sender;
 
 @end
 
@@ -26,6 +36,13 @@
     [super viewDidLoad];
     
     self.title = [self.conversation getParticipantsNames];
+    
+    self.keyboardAppearanceSpaceY = 0;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+
+    
     [self loadMessages];
 
     // Uncomment the following line to preserve selection between presentations.
@@ -37,7 +54,8 @@
 
 - (void)loadMessages
 {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    id view = ([self.messageTextField isFirstResponder]) ? [[UIApplication sharedApplication].windows objectAtIndex:1] : self.view;
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.labelText = @"Loading messages";
     hud.detailsLabelText = @"Please wait few seconds";
     
@@ -47,7 +65,10 @@
         
         if(success) {
             self.messages = [messages mutableCopy];
+//            [self.messages addObjectsFromArray:self.messages];
+//            [self.messages addObjectsFromArray:self.messages];
             [self.tableView reloadData];
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading failed"
                                                             message:@"Check your internet connection, dude."
@@ -140,6 +161,92 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+- (IBAction)sendButtonClicked:(id)sender
+{
+    if([self.messageTextField.text isEmpty]) {
+        return;
+    }
+    
+    Message *message = [[Message alloc] init];
+    message.content = self.messageTextField.text;
+    message.conversationRemoteId = self.conversation.remoteId;
+    
+    id view = ([self.messageTextField isFirstResponder]) ? [[UIApplication sharedApplication].windows objectAtIndex:1] : self.view;
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.labelText = @"Sending message";
+    hud.detailsLabelText = @"Please wait few seconds";
+    
+    [[WebClient sharedInstance] createMessage:message callbackBlock:^(BOOL success) {
+        [hud hide:YES];
+        
+        if(success) {
+            [self loadMessages];
+            self.messageTextField.text = @"";
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sending message failed"
+                                                            message:@"Check your internet connection, dude."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+    }];
+}
+
+- (IBAction)tableViewClicked:(id)sender
+{
+    [self hideKeyboardFromTextViewIfNeeded];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self performSelector:@selector(sendButtonClicked:) withObject:self];
+    return YES;
+}
+
+
+
+- (void)hideKeyboardFromTextViewIfNeeded
+{
+    if([self.messageTextField isFirstResponder]) {
+        [self.messageTextField resignFirstResponder];
+    }
+}
+
+- (void)applicationDidEnterBackground:(NSNotification *)notification
+{
+    [self hideKeyboardFromTextViewIfNeeded];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    if(self.keyboardAppearanceSpaceY != 0) {
+        return;
+    }
+    
+    float height = [KeyboardHelper keyboardHeight:notification] - 49;
+    self.keyboardAppearanceSpaceY = height;
+    
+    [self animateViewWithVerticalMovement:-self.keyboardAppearanceSpaceY duration:[KeyboardHelper keyboardAnimationDuration:notification] andAnimationOptions:[KeyboardHelper keyboardAnimationOptions:notification]];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    [self animateViewWithVerticalMovement:fabs(self.keyboardAppearanceSpaceY) duration:[KeyboardHelper keyboardAnimationDuration:notification] andAnimationOptions:[KeyboardHelper keyboardAnimationOptions:notification]];
+    self.keyboardAppearanceSpaceY = 0;
+}
+
+- (void) animateViewWithVerticalMovement:(float)movement duration:(float)duration andAnimationOptions:(UIViewAnimationOptions)animationOptions
+{
+    [UIView animateWithDuration:duration delay:0 options:animationOptions animations:^{
+
+        self.messageView.frame = CGRectOffset(self.messageView.frame, 0, movement);
+    } completion:^(BOOL finished) {
+        self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height + (movement));
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }];
 }
 
 @end

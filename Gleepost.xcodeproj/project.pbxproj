@@ -57,6 +57,12 @@
 		80AB898D17C2ACA40053E784 /* MYRIADAT.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 80AB898C17C2ACA40053E784 /* MYRIADAT.TTF */; };
 		80AB898F17C2ADA60053E784 /* line.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AB898E17C2ADA60053E784 /* line.png */; };
 		80AB899117C2AE700053E784 /* navigation_bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AB899017C2AE700053E784 /* navigation_bar@2x.png */; };
+		80C4CAB817CFE24700AFA80C /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4CAB717CFE24700AFA80C /* RegisterViewController.m */; };
+		80C4CABA17CFE3C400AFA80C /* post_register.json in Resources */ = {isa = PBXBuildFile; fileRef = 80C4CAB917CFE3C400AFA80C /* post_register.json */; };
+		80C4CABD17CFE65200AFA80C /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80C4CABC17CFE65200AFA80C /* ChatViewController.m */; };
+		80C4CABF17CFEAAB00AFA80C /* post_newconversation.json in Resources */ = {isa = PBXBuildFile; fileRef = 80C4CABE17CFEAAB00AFA80C /* post_newconversation.json */; };
+		80C4CAC117CFFCDC00AFA80C /* post_messages.json in Resources */ = {isa = PBXBuildFile; fileRef = 80C4CAC017CFFCDC00AFA80C /* post_messages.json */; };
+		80C4CAC317D0080100AFA80C /* post_newgroupconversation.json in Resources */ = {isa = PBXBuildFile; fileRef = 80C4CAC217D0080100AFA80C /* post_newgroupconversation.json */; };
 		80CE307417CE4E4D003007D0 /* JsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE307317CE4E4D003007D0 /* JsonParser.m */; };
 		80CE307717CE4F0F003007D0 /* RemoteEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE307617CE4F0F003007D0 /* RemoteEntity.m */; };
 		80CE307D17CE5092003007D0 /* DateFormatterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 80CE307C17CE5092003007D0 /* DateFormatterManager.m */; };
@@ -91,15 +97,15 @@
 		8096E4EE17C2CD6F00C7BF60 /* PostCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostCell.m; sourceTree = "<group>"; };
 		8096E4F017C2D00F00C7BF60 /* navigation_fullblack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigation_fullblack.png; sourceTree = "<group>"; };
 		8096E4F117C2D00F00C7BF60 /* navigation_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigation_select.png; sourceTree = "<group>"; };
-		80AB891717C267F50053E784 /* messaging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = messaging.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		80AB891717C267F50053E784 /* Gleepost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gleepost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80AB891A17C267F50053E784 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		80AB891C17C267F50053E784 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		80AB891E17C267F50053E784 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		80AB892017C267F50053E784 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		80AB892417C267F50053E784 /* messaging-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "messaging-Info.plist"; sourceTree = "<group>"; };
+		80AB892417C267F50053E784 /* Gleepost-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Gleepost-Info.plist"; sourceTree = "<group>"; };
 		80AB892617C267F50053E784 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		80AB892817C267F50053E784 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		80AB892A17C267F50053E784 /* messaging-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "messaging-Prefix.pch"; sourceTree = "<group>"; };
+		80AB892A17C267F50053E784 /* Gleepost-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Gleepost-Prefix.pch"; sourceTree = "<group>"; };
 		80AB892B17C267F50053E784 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		80AB892C17C267F50053E784 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		80AB892E17C267F50053E784 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -150,6 +156,14 @@
 		80AB898C17C2ACA40053E784 /* MYRIADAT.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = MYRIADAT.TTF; sourceTree = "<group>"; };
 		80AB898E17C2ADA60053E784 /* line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line.png; sourceTree = "<group>"; };
 		80AB899017C2AE700053E784 /* navigation_bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation_bar@2x.png"; sourceTree = "<group>"; };
+		80C4CAB617CFE24700AFA80C /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		80C4CAB717CFE24700AFA80C /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		80C4CAB917CFE3C400AFA80C /* post_register.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = post_register.json; sourceTree = "<group>"; };
+		80C4CABB17CFE65200AFA80C /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		80C4CABC17CFE65200AFA80C /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		80C4CABE17CFEAAB00AFA80C /* post_newconversation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = post_newconversation.json; sourceTree = "<group>"; };
+		80C4CAC017CFFCDC00AFA80C /* post_messages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = post_messages.json; sourceTree = "<group>"; };
+		80C4CAC217D0080100AFA80C /* post_newgroupconversation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = post_newgroupconversation.json; sourceTree = "<group>"; };
 		80CE307217CE4E4D003007D0 /* JsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonParser.h; sourceTree = "<group>"; };
 		80CE307317CE4E4D003007D0 /* JsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonParser.m; sourceTree = "<group>"; };
 		80CE307517CE4F0F003007D0 /* RemoteEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteEntity.h; sourceTree = "<group>"; };
@@ -211,7 +225,7 @@
 		80AB890E17C267F50053E784 = {
 			isa = PBXGroup;
 			children = (
-				80AB892217C267F50053E784 /* messaging */,
+				80AB892217C267F50053E784 /* Gleepost */,
 				80AB891917C267F50053E784 /* Frameworks */,
 				80AB891817C267F50053E784 /* Products */,
 				FF972496B7AD4044B85FE95E /* Pods.xcconfig */,
@@ -221,7 +235,7 @@
 		80AB891817C267F50053E784 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				80AB891717C267F50053E784 /* messaging.app */,
+				80AB891717C267F50053E784 /* Gleepost.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -238,7 +252,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		80AB892217C267F50053E784 /* messaging */ = {
+		80AB892217C267F50053E784 /* Gleepost */ = {
 			isa = PBXGroup;
 			children = (
 				80AB898617C2AAF00053E784 /* Resources */,
@@ -249,16 +263,17 @@
 				80AB892317C267F50053E784 /* Supporting Files */,
 				80AB893C17C268440053E784 /* iphone.storyboard */,
 			);
+			name = Gleepost;
 			path = messaging;
 			sourceTree = "<group>";
 		};
 		80AB892317C267F50053E784 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				80AB892417C267F50053E784 /* messaging-Info.plist */,
+				80AB892417C267F50053E784 /* Gleepost-Info.plist */,
 				80AB892517C267F50053E784 /* InfoPlist.strings */,
 				80AB892817C267F50053E784 /* main.m */,
-				80AB892A17C267F50053E784 /* messaging-Prefix.pch */,
+				80AB892A17C267F50053E784 /* Gleepost-Prefix.pch */,
 				80AB892E17C267F50053E784 /* Default.png */,
 				80AB893017C267F50053E784 /* Default@2x.png */,
 				80AB893217C267F50053E784 /* Default-568h@2x.png */,
@@ -300,6 +315,10 @@
 				80AB897617C28D740053E784 /* ViewTopicViewController.m */,
 				80AB897B17C292170053E784 /* NewMessageViewController.h */,
 				80AB897C17C292180053E784 /* NewMessageViewController.m */,
+				80C4CAB617CFE24700AFA80C /* RegisterViewController.h */,
+				80C4CAB717CFE24700AFA80C /* RegisterViewController.m */,
+				80C4CABB17CFE65200AFA80C /* ChatViewController.h */,
+				80C4CABC17CFE65200AFA80C /* ChatViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -423,6 +442,10 @@
 				80E7478917CEA2C4001957E5 /* post_comments.json */,
 				80E7478B17CEA7CB001957E5 /* get_conversations.json */,
 				80E7479317CEAED7001957E5 /* get_messages.json */,
+				80C4CAB917CFE3C400AFA80C /* post_register.json */,
+				80C4CABE17CFEAAB00AFA80C /* post_newconversation.json */,
+				80C4CAC017CFFCDC00AFA80C /* post_messages.json */,
+				80C4CAC217D0080100AFA80C /* post_newgroupconversation.json */,
 			);
 			name = "Fake API";
 			sourceTree = "<group>";
@@ -439,9 +462,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		80AB891617C267F50053E784 /* messaging */ = {
+		80AB891617C267F50053E784 /* Gleepost */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 80AB893917C267F50053E784 /* Build configuration list for PBXNativeTarget "messaging" */;
+			buildConfigurationList = 80AB893917C267F50053E784 /* Build configuration list for PBXNativeTarget "Gleepost" */;
 			buildPhases = (
 				6A619F537015493686B56C15 /* Check Pods Manifest.lock */,
 				80AB891317C267F50053E784 /* Sources */,
@@ -453,9 +476,9 @@
 			);
 			dependencies = (
 			);
-			name = messaging;
+			name = Gleepost;
 			productName = messaging;
-			productReference = 80AB891717C267F50053E784 /* messaging.app */;
+			productReference = 80AB891717C267F50053E784 /* Gleepost.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -467,7 +490,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Gleepost;
 			};
-			buildConfigurationList = 80AB891217C267F50053E784 /* Build configuration list for PBXProject "messaging" */;
+			buildConfigurationList = 80AB891217C267F50053E784 /* Build configuration list for PBXProject "Gleepost" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -479,7 +502,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				80AB891617C267F50053E784 /* messaging */,
+				80AB891617C267F50053E784 /* Gleepost */,
 			);
 		};
 /* End PBXProject section */
@@ -518,6 +541,10 @@
 				80E7478A17CEA2C4001957E5 /* post_comments.json in Resources */,
 				80E7478C17CEA7CB001957E5 /* get_conversations.json in Resources */,
 				80E7479417CEAED7001957E5 /* get_messages.json in Resources */,
+				80C4CABA17CFE3C400AFA80C /* post_register.json in Resources */,
+				80C4CABF17CFEAAB00AFA80C /* post_newconversation.json in Resources */,
+				80C4CAC117CFFCDC00AFA80C /* post_messages.json in Resources */,
+				80C4CAC317D0080100AFA80C /* post_newgroupconversation.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,6 +616,8 @@
 				80E7478817CEA0A5001957E5 /* NSString+Utils.m in Sources */,
 				80E7478F17CEA93B001957E5 /* Conversation.m in Sources */,
 				80E7479217CEA994001957E5 /* Message.m in Sources */,
+				80C4CAB817CFE24700AFA80C /* RegisterViewController.m in Sources */,
+				80C4CABD17CFE65200AFA80C /* ChatViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,10 +697,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FF972496B7AD4044B85FE95E /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lukasz Piliszczuk (7KX27GL3Z9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lukasz Piliszczuk (7KX27GL3Z9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "messaging/messaging-Prefix.pch";
-				INFOPLIST_FILE = "messaging/messaging-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "messaging/Gleepost-Prefix.pch";
+				INFOPLIST_FILE = "messaging/Gleepost-Info.plist";
+				PRODUCT_NAME = Gleepost;
+				PROVISIONING_PROFILE = "DB59156D-8EF3-41D3-A57C-09C74D07DE75";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DB59156D-8EF3-41D3-A57C-09C74D07DE75";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -680,10 +713,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FF972496B7AD4044B85FE95E /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lukasz Piliszczuk (7KX27GL3Z9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lukasz Piliszczuk (7KX27GL3Z9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "messaging/messaging-Prefix.pch";
-				INFOPLIST_FILE = "messaging/messaging-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "messaging/Gleepost-Prefix.pch";
+				INFOPLIST_FILE = "messaging/Gleepost-Info.plist";
+				PRODUCT_NAME = Gleepost;
+				PROVISIONING_PROFILE = "DB59156D-8EF3-41D3-A57C-09C74D07DE75";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DB59156D-8EF3-41D3-A57C-09C74D07DE75";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -691,7 +728,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		80AB891217C267F50053E784 /* Build configuration list for PBXProject "messaging" */ = {
+		80AB891217C267F50053E784 /* Build configuration list for PBXProject "Gleepost" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				80AB893717C267F50053E784 /* Debug */,
@@ -700,7 +737,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		80AB893917C267F50053E784 /* Build configuration list for PBXNativeTarget "messaging" */ = {
+		80AB893917C267F50053E784 /* Build configuration list for PBXNativeTarget "Gleepost" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				80AB893A17C267F50053E784 /* Debug */,

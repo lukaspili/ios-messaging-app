@@ -21,8 +21,8 @@
 + (Comment *)parseCommentFromJson:(NSDictionary *)json;
 + (NSArray *)parseCommentsFromJson:(NSArray *)jsonComments;
 
-+ (Conversation *)parseConversationFromJson:(NSDictionary *)json;
-+ (NSArray *)parseConversationsFromJson:(NSArray *)jsonConversations;
++ (Conversation *)parseConversationFromJson:(NSDictionary *)json ignoringUser:(User *)userToIgnore;
++ (NSArray *)parseConversationsFromJson:(NSArray *)jsonConversations ignoringUser:(User *)userToIgnore;
 + (Message *)parseMessageFromJson:(NSDictionary *)json;
 + (NSArray *)parseMessagesFromJson:(NSArray *)jsonMessages;
     

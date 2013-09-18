@@ -10,6 +10,6 @@
 
 @implementation Message
 
-@synthesize seen, content, date, author;
+@synthesize seen, content, date, author, conversationRemoteId;
 
 @end

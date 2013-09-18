@@ -66,7 +66,7 @@
     return comments;
 }
 
-+ (Conversation *)parseConversationFromJson:(NSDictionary *)json
++ (Conversation *)parseConversationFromJson:(NSDictionary *)json ignoringUser:(User *)userToIgnore
 {
     Conversation *conversation = [[Conversation alloc] init];
     conversation.remoteId = [json[@"id"] integerValue];
@@ -74,18 +74,21 @@
     
     NSMutableArray *participants = [NSMutableArray array];
     for(id jsonUser in json[@"participants"]) {
-        [participants addObject:[JsonParser parseUserFromJson:jsonUser]];
+        User *user = [JsonParser parseUserFromJson:jsonUser];
+        if(userToIgnore && user.remoteId != userToIgnore.remoteId) {
+            [participants addObject:user];
+        }
     }
     conversation.participants = participants;
     
     return conversation;
 }
 
-+ (NSArray *)parseConversationsFromJson:(NSArray *)jsonConversations
++ (NSArray *)parseConversationsFromJson:(NSArray *)jsonConversations ignoringUser:(User *)userToIgnore
 {
     NSMutableArray *conversations = [NSMutableArray array];
     for(id jsonConversation in jsonConversations) {
-        [conversations addObject:[JsonParser parseConversationFromJson:jsonConversation]];
+        [conversations addObject:[JsonParser parseConversationFromJson:jsonConversation ignoringUser:userToIgnore]];
     }
     
     return conversations;
